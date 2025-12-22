@@ -72,7 +72,18 @@ export async function chooseOperation(
 				console.error("Error during CSV transaction retrieval:", error);
 			}
 
+        case "Get Mempool content (NOT SUPPORTED FOR ALL CHAINS)":
+            try {
+                const result = await rpcOBJ.getMempool();
+                console.log("Mempool Content:", result);
+            } catch (error) {
+                console.error("Error during mempool retrieval:", error);
+            }
+            break;
+
 		default:
 			break;
 	}
 }
+
+

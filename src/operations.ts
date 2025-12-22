@@ -2,7 +2,6 @@ import axios from "axios";
 import https from "https";
 import fs, { write } from "fs";
 import { parseCsv } from "./utils/parseCsv.utils";
-import { getPrompt } from "./utils/prompt.utils";
 import { loopHashes } from "./utils/loophashes.utils";
 
 export async function rebroadcastTransaction(
@@ -30,11 +29,7 @@ export async function rebroadcastTransaction(
 				}),
 			} as any
 		);
-		if (response.data.error.code === -32603) {
-			console.log("TRY AND USE A DIFFERENT RPC URL");
-
-			getPrompt();
-		}
+		return response.data;
 	} catch (error: any) {
 		if (error.response) {
 			return error.response.data;
@@ -121,4 +116,30 @@ export async function getBatchTransactionFromCSV(
 ) {
 	const hashes: string[] = parseCsv(csvpath);
 	loopHashes(hashes, rpc, writetoCSV);
+}
+
+export async function getMempoolContent(rpcURL: string): Promise<any> {
+	try {
+		const response = await axios.post(
+			rpcURL,
+			{
+				jsonrpc: "2.0",
+				method: "txpool_content",
+				params: [],
+				id: 1,
+			},
+			{
+				headers: {
+					"Content-Type": "application/json",
+
+				},
+				httpsAgent: new https.Agent({
+						rejectUnauthorized: false,
+					}),
+			} as any
+		);
+		return response.data;
+	} catch (error) {
+		throw new Error(`Error during mempool retrieval: ${error}`);
+	}
 }

@@ -55,11 +55,11 @@ export async function getPrompt() {
 			"Get Transaction",
 			"Get Nonce",
 			"GET URLS",
-			"CSV test",
+			"get Batch Transaction from CSV",
+            "Get Mempool content (NOT SUPPORTED FOR ALL CHAINS)"
 		],
 	});
 
 	chooseOperation(Operation, rpcOBJ);
 }
 
-//02f87383aa36a780843b9aca00843b9aca1082520894df3fae8a29fd75dd5749557326102641171dbc718609184e72a00080c080a0bfe8bd222d35a210a635fdea870d8a6eeb2f00e8c1056bfa9d2d480b635860b6a06b691b9afdc7ee4460cf7b49525241eb921a6b4700b49a10f1fde84027f56206

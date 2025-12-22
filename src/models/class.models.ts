@@ -5,6 +5,7 @@ import {
 	getTransaction,
 	getNonce,
 	getBatchTransactionFromCSV,
+	getMempoolContent
 } from "../operations";
 import inquirerAutocomplete from "inquirer-autocomplete-prompt";
 import fs from "fs";
@@ -29,4 +30,11 @@ export class Rebroadcaster {
 	async getBatchTransactionFromCSV(csvPath: string, writetoCSV: string) {
 		return await getBatchTransactionFromCSV(this.rpc, csvPath, writetoCSV);
 	}
+
+	async getMempool()
+	{
+		return await getMempoolContent(this.rpc);
+	}
+
+
 }
