@@ -20,8 +20,4 @@ This tool simplifies common transaction workflows such as nonce handling, rebroa
 ## 📦 Installation
 
 ```bash
-npm install evm-tx-utils
-# or
-yarn add evm-tx-utils
-# or
-pnpm add evm-tx-utils
+npm install
