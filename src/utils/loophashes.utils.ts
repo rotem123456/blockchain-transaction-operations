@@ -1,4 +1,4 @@
-import { getTransaction } from "../operations";
+import { getTransaction } from "../operations/evm.operations";
 import { sleep } from "./sleep.utils";
 import * as fs from "fs";
 

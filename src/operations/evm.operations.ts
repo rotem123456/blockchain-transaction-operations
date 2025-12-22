@@ -1,8 +1,8 @@
 import axios from "axios";
 import https from "https";
 import fs, { write } from "fs";
-import { parseCsv } from "./utils/parseCsv.utils";
-import { loopHashes } from "./utils/loophashes.utils";
+import { parseCsv } from "../utils/parseCsv.utils";
+import { loopHashes } from "../utils/loophashes.utils";
 
 export async function rebroadcastTransaction(
 	rpcURL: string,

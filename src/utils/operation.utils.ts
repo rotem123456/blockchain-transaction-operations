@@ -1,9 +1,9 @@
 import inquirer from "inquirer";
-import { Rebroadcaster } from "../models/class.models";
+import {EVMclass } from "../models/EVMclass.models";
 
 export async function chooseOperation(
 	Operation: string,
-	rpcOBJ: Rebroadcaster
+	rpcOBJ: EVMclass
 ) {
 	switch (Operation) {
 		case "Rebroadcast":

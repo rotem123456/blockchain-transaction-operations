@@ -6,12 +6,12 @@ import {
 	getNonce,
 	getBatchTransactionFromCSV,
 	getMempoolContent
-} from "../operations";
+} from "../operations/evm.operations";
 import inquirerAutocomplete from "inquirer-autocomplete-prompt";
 import fs from "fs";
 import fuzzy from "fuzzy";
 
-export class Rebroadcaster {
+export class EVMclass {
 	chainName: string;
 	rpc: string;
 	constructor(chainName: string, rpc: string) {
