@@ -1,31 +1,20 @@
-import axios from "axios";
-import https from "https";
+import inquirer from "inquirer";
+import { XRPclass } from "../models/XRPclass.models";
+import { OperationType } from "../const";
 
-export async function rebroadcastTransaction(
-	rpcURL: string,
-	txHex: string
-): Promise<any> {
-	try {
-		const response = await axios.post(
-			rpcURL,
-			{
-				method: "submit",
-				params: [{ tx_blob: txHex }],
-				id: 1,
-				jsonrpc: "2.0",
-			},
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-				httpsAgent: new https.Agent({
-					rejectUnauthorized: false,
-				}),
-			} as any
-		);
-		return response.data;
-	} catch (error) {
-		console.error("Error rebroadcasting transaction:", error);
-		throw error;
+export async function chooseOperations(Operation: string, rpcOBJ: XRPclass) {
+	switch (Operation) {
+		case OperationType.rebroadcastTransaction:
+			const { txHex } = await inquirer.prompt({
+				type: "input",
+				name: "txHex",
+				message: "Enter Transaction Hex:",
+			});
+			const result = await rpcOBJ.rebroadcastTransaction(txHex);
+			console.log("Rebroadcast Result:", result);
+			break;
+
+		default:
+			break;
 	}
 }

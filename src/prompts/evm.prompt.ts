@@ -4,7 +4,7 @@ import { EVMclass } from "../models/EVMclass.models"
 import fuzzy from "fuzzy";
 const rpcURLList = fs.readFileSync("./RPClist.json", "utf-8");
 const rpcURLs = JSON.parse(rpcURLList);
-import { chooseOperation } from "../utils/operation.utils";
+import { chooseOperation } from "../operations/evm.operation";
 import { OperationType } from "../const";
 
 

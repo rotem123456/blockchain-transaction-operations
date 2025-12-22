@@ -1,15 +1,10 @@
-import axios from "axios";
-import inquirer from "inquirer";
 import {
 	rebroadcastTransaction,
 	getTransaction,
 	getNonce,
 	getBatchTransactionFromCSV,
 	getMempoolContent
-} from "../operations/evm.operations";
-import inquirerAutocomplete from "inquirer-autocomplete-prompt";
-import fs from "fs";
-import fuzzy from "fuzzy";
+} from "../rpc/evm.rpc";
 
 export class EVMclass {
 	chainName: string;

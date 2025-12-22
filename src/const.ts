@@ -13,13 +13,20 @@ export const XRP_Testnet_RPC = [
     "https://xahau-test.net/"
 ];
 
+export const TRX_Mainnet_RPC = [
+    "https://api.trongrid.io",
+];
+
+export const TRX_Testnet_RPC = [
+    "https://api.shasta.trongrid.io",
+];
 
 
 
 export enum OperationType {
-	rebroadcastTransaction = "Rebroadcast Transaction",
+	rebroadcastTransaction = "Rebroadcast",
     getTransaction = "Get Transaction",
     getNonce = "Get Nonce",
-    getBatchTransactionFromCSV = "CSV test",
-    getMempool = "get Batch Transaction from CSV"
+    getBatchTransactionFromCSV = "Get Transaction from CSV",
+    getMempool = "Get Mempool content (NOT SUPPORTED FOR ALL CHAINS)"
 }

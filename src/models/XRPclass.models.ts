@@ -1,4 +1,4 @@
-import { rebroadcastTransaction } from "../operations/xrp.operation";
+import { rebroadcastTransaction } from "../rpc/xrp.rpc";
 export class XRPclass{
     network:string
     rpc:string

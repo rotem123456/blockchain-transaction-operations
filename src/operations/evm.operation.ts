@@ -1,12 +1,13 @@
 import inquirer from "inquirer";
 import {EVMclass } from "../models/EVMclass.models";
+import {OperationType } from "../const";
 
 export async function chooseOperation(
 	Operation: string,
 	rpcOBJ: EVMclass
 ) {
 	switch (Operation) {
-		case "Rebroadcast":
+		case OperationType.rebroadcastTransaction:
 			const { txHex } = await inquirer.prompt({
 				type: "input",
 				name: "txHex",
@@ -20,7 +21,7 @@ export async function chooseOperation(
 			}
 			break;
 
-		case "Get Transaction":
+		case OperationType.getTransaction:
 			const { txHash } = await inquirer.prompt({
 				type: "input",
 				name: "txHash",
@@ -35,7 +36,7 @@ export async function chooseOperation(
 			}
 			break;
 
-		case "Get Nonce":
+		case OperationType.getNonce:
 			const { address } = await inquirer.prompt({
 				type: "input",
 				name: "address",
@@ -50,7 +51,7 @@ export async function chooseOperation(
 			}
 			break;
 
-		case "CSV test":
+		case OperationType.getBatchTransactionFromCSV:
 			const { csvPath } = await inquirer.prompt({
 				type: "input",
 				name: "csvPath",
@@ -72,7 +73,7 @@ export async function chooseOperation(
 				console.error("Error during CSV transaction retrieval:", error);
 			}
 
-        case "Get Mempool content (NOT SUPPORTED FOR ALL CHAINS)":
+        case OperationType.getMempool:
             try {
                 const result = await rpcOBJ.getMempool();
                 console.log("Mempool Content:", result);

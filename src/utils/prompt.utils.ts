@@ -3,6 +3,7 @@ import inquirerAutocomplete from "inquirer-autocomplete-prompt";
 import fs from "fs";
 import { evmPrompt } from "../prompts/evm.prompt";
 import { xrpPrompt } from "../prompts/xrp.prompt";
+import { trxPrompt } from "../prompts/trx.prompt";
 
 const rpcURLList = fs.readFileSync("./RPClist.json", "utf-8");
 const rpcURLs = JSON.parse(rpcURLList);
@@ -14,7 +15,7 @@ export async function getPrompt() {
 		type: "list",
 		name: "blockchain",
 		message: "Select Blockchain:",
-		choices: ["XRP", "EVM"],
+		choices: ["XRP", "EVM","TRX"],
 	});
 
 	switch (blockchain) {
@@ -25,7 +26,14 @@ export async function getPrompt() {
 		case "XRP":
 			await xrpPrompt();
 			break;
+
+		case "TRX":
+           await trxPrompt();
+			break;
 	}
+
+
+
 
 
 }

@@ -3,7 +3,7 @@ import fs from "fs";
 import fuzzy from "fuzzy";
 const rpcURLList = fs.readFileSync("./RPClist.json", "utf-8");
 const rpcURLs = JSON.parse(rpcURLList);
-import { chooseOperation } from "../utils/operation.utils";
+import { chooseOperations } from "../operations/xrp.operation";
 import { sleep } from "../utils/sleep.utils";
 import { XRP_Mainnet_RPC, XRP_Testnet_RPC } from "../const";
 import { XRPclass } from "../models/XRPclass.models";
@@ -56,20 +56,7 @@ export async function xrpPrompt() {
 
 	console.log(`Selected Operation: ${chooseOperation}`);
 	sleep(500);
+    const xrpInstance = new XRPclass(network, rpcUrl);
 
-	switch (chooseOperation) {
-		case "Rebroadcast Transaction":
-			const { txHex } = await inquirer.prompt({
-				type: "input",
-				name: "txHex",
-				message: "Enter Transaction Hex:",
-			});
-			const xrpInstance = new XRPclass(network, rpcUrl);
-			const result = await xrpInstance.rebroadcastTransaction(txHex);
-			console.log("Rebroadcast Result:", result);
-			break;
-
-		default:
-			break;
-	}
+	chooseOperations(chooseOperation, xrpInstance);
 }
