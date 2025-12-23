@@ -10,7 +10,7 @@ This tool simplifies common transaction workflows such as nonce handling, rebroa
 - 🔁 **Rebroadcast pending or dropped transactions**
 - 📄 **Fetch a single transaction**
 - 📦 **Batch-fetch transactions**
-- 🌐 Works with **any EVM-compatible blockchain**
+- 🌐 Works with **any EVM/TRON/XRP/TON compatible blockchain**
 - 🧱 Written in **TypeScript**
 - ⚡ Optimized for backend and infra use cases
 - 🔌 RPC-provider agnostic
@@ -21,3 +21,6 @@ This tool simplifies common transaction workflows such as nonce handling, rebroa
 
 ```bash
 npm install
+
+For broadcasting a TON transaction please create a TON api key from  https://docs.ton.org/ecosystem/api/toncenter/get-api-key
+and then create a .env file with TON_API_KEY = <YOUR TON API KEY>
