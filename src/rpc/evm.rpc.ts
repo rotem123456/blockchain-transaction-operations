@@ -143,3 +143,23 @@ export async function getMempoolContent(rpcURL: string): Promise<any> {
 		throw new Error(`Error during mempool retrieval: ${error}`);
 	}
 }
+
+
+export async function getRPCurlsAsList(): Promise<any> {
+	try {
+		const outputPath = "./RPClist.json";
+		const response = await axios.get("https://chainlist.org/rpcs.json", {
+			httpsAgent: new https.Agent({
+				rejectUnauthorized: false,
+			}),
+		} as any);
+		return response.data;
+	} catch (error: any) {
+		console.error("Error details:", error.message);
+		if (error.response) {
+			console.error("Response status:", error.response.status);
+			console.error("Response data:", error.response.data);
+		}
+		throw new Error(`Error fetching RPC URLs: ${error.message}`);
+	}
+}

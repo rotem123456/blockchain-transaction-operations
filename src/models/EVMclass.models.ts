@@ -3,7 +3,8 @@ import {
 	getTransaction,
 	getNonce,
 	getBatchTransactionFromCSV,
-	getMempoolContent
+	getMempoolContent,
+	getRPCurlsAsList
 } from "../rpc/evm.rpc";
 
 export class EVMclass {
@@ -29,6 +30,11 @@ export class EVMclass {
 	async getMempool()
 	{
 		return await getMempoolContent(this.rpc);
+	}
+
+	async getRPCurls()
+	{
+		return await getRPCurlsAsList();
 	}
 
 

@@ -31,7 +31,7 @@ export async function evmPrompt(){
 
                 const rpcs = rpc.map((item: any) => item.url);
 
-                //Get RPC
+
                 const rpcUrltoChoose = await inquirer.prompt({
                     type: "list",
                     name: "rpcUrltoChoose",

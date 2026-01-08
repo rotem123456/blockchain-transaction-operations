@@ -2,3 +2,4 @@ node_modules
 success.csv
 failed.csv
 .env
+fortesting
