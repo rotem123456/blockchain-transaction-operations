@@ -28,4 +28,36 @@ export async function rebroadcastTransaction(
 		console.error("Error rebroadcasting transaction:", error);
 		throw error;
 	}
+
 }
+
+export async function getTransaction(
+		rpcURL: string,
+		txHash: string
+	): Promise<any> {
+		try {
+			const response = await axios.post(
+				rpcURL,
+				{
+					method: "tx",
+					params: [{ transaction: txHash }],
+					id: 1,
+					jsonrpc: "2.0",
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					httpsAgent: new https.Agent({
+						rejectUnauthorized: false,
+					}),
+				} as any
+			);
+			return response.data;
+		} catch (error) {
+			console.error("Error getting transaction:", error);
+			throw error;
+		}
+	}
+
+//from docs - https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/transaction-methods/tx

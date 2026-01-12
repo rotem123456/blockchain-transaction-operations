@@ -52,7 +52,7 @@ export async function trxPrompt() {
 
     console.log(`Selected Operation: ${chooseOperation}`);
     sleep(500);
-    const TRXInstance = new TRXclass(network, rpcUrl);
+    const TRXInstance = new TRXclass(rpcUrl);
 
     chooseOperations(chooseOperation, TRXInstance);
 }

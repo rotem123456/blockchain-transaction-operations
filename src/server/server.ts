@@ -4,6 +4,7 @@ import cors from 'cors';
 import { EVMrouter } from './routes/evm.routes.js';
 import { XRProuter } from './routes/xrp.routes.js';
 import { TONrouter } from './routes/ton.routes.js';
+import { TRXrouter } from './routes/trx.routes.js';
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/evm', EVMrouter);
 app.use('/xrp', XRProuter);
 app.use('/ton', TONrouter);
+app.use('/trx', TRXrouter);
 
 app.get('/health', (req: Request, res: Response) => {
     res.status(200).json({

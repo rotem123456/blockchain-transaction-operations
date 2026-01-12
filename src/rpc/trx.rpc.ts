@@ -7,7 +7,7 @@ export async function rebroadcastTransaction(
 ): Promise<any> {
 	try {
 		const response = await axios.post(
-			rpcURL+'/wallet/broadcasthex',
+			`${rpcURL}/wallet/broadcasthex`,
 			{
 				transaction: txHex
 			},
@@ -25,4 +25,31 @@ export async function rebroadcastTransaction(
 		console.error("Error rebroadcasting transaction:", error);
 		throw error;
 	}
+}
+
+
+export async function getTransaction(
+		rpcURL: string,
+		txHash: string
+	): Promise<any> {
+		try {
+			const response = await axios.post(
+				`${rpcURL}/walletsolidity/gettransactionbyid`,
+				{
+					value: txHash
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					httpsAgent: new https.Agent({
+						rejectUnauthorized: false,
+					}),
+				} as any
+			);
+			return response.data;
+		} catch (error) {
+			console.error("Error getting transaction:", error);
+			throw error;
+		}
 }

@@ -1,46 +1,41 @@
-// evm.RPC-list.tsx
 import { useState, useEffect } from 'react';
+
+export const XRP_Mainnet_RPC = [
+    "https://xrplcluster.com/",
+    "https://xrpl.ws/",
+    "https://s1.ripple.com:51234/",
+    "https://s2.ripple.com:51234/",
+];
+
+export const XRP_Testnet_RPC = [
+    "https://s.altnet.rippletest.net:51234/",
+    "https://clio.altnet.rippletest.net:51234/",
+    "https://s.devnet.rippletest.net:51234/",
+    "https://clio.devnet.rippletest.net:51234/",
+    "https://xahau-test.net/",
+];
+
 interface RPCListProps {
-    chainName: string;
+    network: string; // 'mainnet' or 'testnet'
     onSelectRPC?: (rpc: string) => void;
 }
 
-export function RPCList({ chainName, onSelectRPC }: RPCListProps) {
+export function XRPRPCList({ network, onSelectRPC }: RPCListProps) {
     const [rpcUrls, setRpcUrls] = useState<string[]>([]);
     const [selectedRPC, setSelectedRPC] = useState<string>('');
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchRPCs = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch('http://localhost:3000/evm/rpc-urls', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
 
-                const data = await response.json();
-                if (data.success && data.data?.rpcUrls) {
-                    let rpcData = data.data.rpcUrls;
-                    if (typeof rpcData === 'string') {
-                        rpcData = JSON.parse(rpcData);
-                    }
+        if (network === 'mainnet') {
+            setRpcUrls(XRP_Mainnet_RPC);
+        } else if (network === 'testnet') {
+            setRpcUrls(XRP_Testnet_RPC);
+        } else {
+            setRpcUrls([]);
+        }
 
-                    const chain = rpcData.find((item: any) => item.name === chainName);
-                    const rpcs = chain?.rpc?.map((item: any) => item.url) || [];
-                    setRpcUrls(rpcs);
-                }
-            } catch (error) {
-                console.error("Error fetching RPC URLs:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRPCs();
-    }, [chainName]);
+        setSelectedRPC('');
+    }, [network]);
 
     const handleRPCChange = (url: string) => {
         setSelectedRPC(url);
@@ -49,13 +44,13 @@ export function RPCList({ chainName, onSelectRPC }: RPCListProps) {
         }
     };
 
-    if (loading) return <div>Loading RPCs...</div>;
-
-    if (rpcUrls.length === 0) return <div>No RPCs found for {chainName}</div>;
+    if (rpcUrls.length === 0) {
+        return <div>Please select a network first</div>;
+    }
 
     return (
         <div style={{ marginTop: '20px' }}>
-            <h3>Select RPC for {chainName}</h3>
+            <h3>Select RPC for {network.toUpperCase()}</h3>
             <select
                 value={selectedRPC}
                 onChange={(e) => handleRPCChange(e.target.value)}
@@ -91,8 +86,6 @@ export function RPCList({ chainName, onSelectRPC }: RPCListProps) {
                     {selectedRPC}
                 </div>
             )}
-
-
         </div>
     );
 }

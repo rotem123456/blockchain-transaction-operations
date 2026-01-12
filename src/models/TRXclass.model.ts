@@ -1,15 +1,17 @@
-import { rebroadcastTransaction } from "../rpc/trx.rpc";
+import { rebroadcastTransaction,getTransaction } from "../rpc/trx.rpc";
 
 export class TRXclass {
-    chainName: string;
+
     rpc: string;
-    constructor(chainName: string, rpc: string) {
-        this.chainName = chainName;
+    constructor(rpc: string) {
+
         this.rpc = rpc;
     }
     async rebroadcastTransaction(txHex: string) {
         return await rebroadcastTransaction(this.rpc, txHex);
     }
 
-    //add more functionality as needed
+    async getTransaction(txHash: string) {
+        return await getTransaction(this.rpc, txHash);
+    }
 }

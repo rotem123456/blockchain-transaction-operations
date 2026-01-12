@@ -1,10 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { XRPclass } from '../../models/XRPclass.models.js';
+import { TRXclass } from '../../models/TRXclass.model';
+import { XRProuter } from './xrp.routes';
 
 
-const XRProuter = Router();
+const TRXrouter = Router();
 
-XRProuter.post('/rebroadcast', async (req: Request, res: Response, next: NextFunction) => {
+TRXrouter.post('/rebroadcast', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { rpcURL, txHex } = req.body;
 
@@ -12,8 +13,8 @@ XRProuter.post('/rebroadcast', async (req: Request, res: Response, next: NextFun
             console.log("ERROR")
         }
 
-        const xrpInstance = new XRPclass(rpcURL);
-        const result = await xrpInstance.rebroadcastTransaction(txHex);
+        const trxInstance = new TRXclass(rpcURL);
+        const result = await trxInstance.rebroadcastTransaction(txHex);
 
         res.status(200).json({
             success: true,
@@ -26,7 +27,7 @@ XRProuter.post('/rebroadcast', async (req: Request, res: Response, next: NextFun
 });
 
 
-XRProuter.post('/transaction', async (req: Request, res: Response, next: NextFunction) => {
+TRXrouter.post('/transaction', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { rpcURL, txHash } = req.body;
 
@@ -34,8 +35,8 @@ XRProuter.post('/transaction', async (req: Request, res: Response, next: NextFun
             console.log("ERROR")
         }
 
-        const xrpInstance = new XRPclass(rpcURL);
-        const result = await xrpInstance.getTransaction(txHash);
+        const trxInstance = new TRXclass(rpcURL);
+        const result = await trxInstance.getTransaction(txHash);
 
         res.status(200).json({
             success: true,
@@ -47,4 +48,4 @@ XRProuter.post('/transaction', async (req: Request, res: Response, next: NextFun
     }
 });
 
-export { XRProuter };
+export { TRXrouter };
