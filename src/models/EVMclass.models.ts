@@ -4,7 +4,8 @@ import {
 	getNonce,
 	getBatchTransactionFromCSV,
 	getMempoolContent,
-	getRPCurlsAsList
+	getRPCurlsAsList,
+	batchRebroadcastFromCSV,
 } from "../rpc/evm.rpc";
 
 export class EVMclass {
@@ -36,6 +37,8 @@ export class EVMclass {
 	{
 		return await getRPCurlsAsList();
 	}
-
+	async batchRebroadcastFromCSV(csvPath: string, writetoCSV: string) {
+		return await batchRebroadcastFromCSV(this.rpc, csvPath, writetoCSV);
+	}
 
 }

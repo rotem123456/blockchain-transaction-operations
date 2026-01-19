@@ -83,6 +83,19 @@ export async function chooseOperation(
             }
             break;
 
+		case "BATCH REBROADCAST FROM CSV":
+			const { csvPath: rebroadcastCsvPath } = await inquirer.prompt({
+				type: "input",
+				name: "csvPath",
+				message: "Enter CSV Path:",
+			});
+			try {
+				const result = await rpcOBJ.batchRebroadcastFromCSV(rebroadcastCsvPath,"rebroadcast_results.csv");
+				console.log("Rebroadcast Batch Result:", result);
+			} catch (error) {
+				console.error("Error during batch rebroadcast:", error);
+			}
+			break;
 		default:
 			break;
 	}

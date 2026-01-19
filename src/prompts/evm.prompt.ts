@@ -53,6 +53,7 @@ export async function evmPrompt(){
                         OperationType.getNonce,
                         OperationType.getBatchTransactionFromCSV,
                         OperationType.getMempool,
+                        "BATCH REBROADCAST FROM CSV",
                     ],
                 });
 

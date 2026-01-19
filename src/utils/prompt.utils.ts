@@ -5,6 +5,7 @@ import { evmPrompt } from "../prompts/evm.prompt";
 import { xrpPrompt } from "../prompts/xrp.prompt";
 import { trxPrompt } from "../prompts/trx.prompt";
 import { tonPrompt } from "../prompts/ton.prompt";
+import { suiPrompt } from "../prompts/sui.prompt";
 
 const rpcURLList = fs.readFileSync("./RPClist.json", "utf-8");
 const rpcURLs = JSON.parse(rpcURLList);
@@ -16,7 +17,7 @@ export async function getPrompt() {
 		type: "list",
 		name: "blockchain",
 		message: "Select Blockchain:",
-		choices: ["XRP", "EVM","TRX","TON"],
+		choices: ["XRP", "EVM","TRX","TON","SUI"],
 	});
 
 	switch (blockchain) {
@@ -35,7 +36,12 @@ export async function getPrompt() {
 		case "TON":
 			await tonPrompt();
 			break;
-	}
+
+		case "SUI":
+			await suiPrompt();
+			break;
+		}
+
 
 
 

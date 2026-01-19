@@ -149,9 +149,9 @@ function App() {
                             padding: '15px',
                             fontSize: '16px',
                             fontWeight: 'bold',
-                            backgroundColor: chainType === 'TON' ? '#4CAF50' : '#f0f0f0',
-                            color: chainType === 'TON' ? 'white' : '#333',
-                            border: chainType === 'TON' ? '3px solid #4CAF50' : '2px solid #ccc',
+                            backgroundColor: chainType === 'TRX' ? '#4CAF50' : '#f0f0f0',
+                            color: chainType === 'TRX' ? 'white' : '#333',
+                            border: chainType === 'TRX' ? '3px solid #4CAF50' : '2px solid #ccc',
                             borderRadius: '8px',
                             cursor: 'pointer'
                         }}>

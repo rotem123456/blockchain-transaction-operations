@@ -3,6 +3,18 @@ import https from "https";
 import fs, { write } from "fs";
 import { parseCsv } from "../utils/parseCsv.utils";
 import { loopHashes } from "../utils/loophashes.utils";
+import { sleep } from "../utils/sleep.utils";
+
+interface TransactionRow {
+	txId: string;
+	txHex: string;
+}
+
+interface ResultRow {
+	txId: string;
+	response: string;
+}
+
 
 export async function rebroadcastTransaction(
 	rpcURL: string,
@@ -163,3 +175,41 @@ export async function getRPCurlsAsList(): Promise<any> {
 		throw new Error(`Error fetching RPC URLs: ${error.message}`);
 	}
 }
+
+export async function batchRebroadcastFromCSV(
+	rpc: string,
+	csvpath: string,
+	writetoCSV: string
+): Promise<void> {
+
+	const lines = fs.readFileSync(csvpath, "utf-8").trim().split('\n');
+	const headers = lines[0].split(',');
+
+	const output = ['txId,response'];
+
+	for (let i = 1; i < lines.length; i++) {
+		if (!lines[i].trim()) continue;
+
+		const [txId, txHex] = lines[i].split(',').map(v => v.trim());
+
+		console.log(`Processing ${i}/${lines.length - 1}: ${txId}`);
+
+		try {
+			const response = await rebroadcastTransaction(rpc, txHex);
+			const responseStr = JSON.stringify(response).replace(/"/g, '""');
+			output.push(`${txId},"${responseStr}"`);
+			console.log(`  ✓ ${response.result || response.error?.message}`);
+		} catch (error: any) {
+			const errorStr = JSON.stringify({ error: error.message }).replace(/"/g, '""');
+			output.push(`${txId},"${errorStr}"`);
+			console.error(`  ✗ ${error.message}`);
+		}
+
+		sleep(500)
+	}
+
+
+	fs.writeFileSync(writetoCSV, output.join('\n'));
+	console.log(`\nDone! Results written to: ${writetoCSV}`);
+}
+

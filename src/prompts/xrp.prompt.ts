@@ -56,7 +56,7 @@ export async function xrpPrompt() {
 
 	console.log(`Selected Operation: ${chooseOperation}`);
 	sleep(500);
-    const xrpInstance = new XRPclass(network, rpcUrl);
+    const xrpInstance = new XRPclass(rpcUrl);
 
 	chooseOperations(chooseOperation, xrpInstance);
 }
